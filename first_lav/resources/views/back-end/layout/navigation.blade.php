@@ -14,24 +14,21 @@
                     <li class="active">
                         <a href="index.html"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
-                        @permission(['Permission Update','All'])
+                    @permission(['Permission Update','All'])
                     <li>
                         <a href="{{route('PermissionList')}}"> <i class="menu-icon fa fa-laptopmenu-icon fa fa-laptop"></i>Permission </a>
                     </li>
-                        @endpermission
-
-                        @permission(['Permission Update','All'])
+                    @endpermission
+                    @permission(['Permission Update','All'])
                     <li>    
                         <a href="{{route('RoleList')}}"> <i class="menu-icon fa fa-laptopmenu-icon fa fa-laptop"></i>Roles </a>
                     </li>
-                        @endpermission
-
-                        @permission(['Permission Update','All'])
+                    @endpermission
+                    @permission(['Permission Update','All'])
                     <li>    
                         <a href="{{route('AuthorList')}}"> <i class="menu-icon fa fa-laptopmenu-icon fa fa-laptop"></i>Author </a>
                     </li>
-                        @endpermission
-                        
+                    @endpermission    
                     <h3 class="menu-title">UI elements</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Components</a>

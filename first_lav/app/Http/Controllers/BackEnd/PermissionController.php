@@ -89,10 +89,10 @@ class PermissionController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request,[
-            'name' => 'required|alpha_num'
+            'name' => 'required'
         ],[
             'name.required' => 'Name Field is Required',
-            'name.alpha_num' => 'This field accepts alpha numeric characters'
+            // 'name.alpha_num' => 'This field accepts alpha numeric characters'
         ]);
         $permission = Permission::find($id);//Trong Class Permission gọi đến hàm find($id)
         $permission->name  = $request->name;

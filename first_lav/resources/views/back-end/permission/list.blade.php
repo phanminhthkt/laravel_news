@@ -37,7 +37,9 @@
           <div class="card">
               <div class="card-header">
                   <strong class="card-title">{{ $page_name }}</strong>
+                  @permission(['Author Add'])
                   <a href="{{route('PermissionCreate')}}" class="btn btn-primary pull-right">Create</a>
+                  @endpermission
               </div>
               <div class="card-body">
         <table id="bootstrap-data-table" class="table table-striped table-bordered">

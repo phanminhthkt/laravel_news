@@ -24,16 +24,19 @@ Route::group(['prefix' => 'backend','middleware' => 'auth'],function(){
 	/*End Category */
 
 	/*Permission */
-	// Route::get('/permission',
-	// 	['uses' => 'BackEnd\PermissionController@index'
-	// 	 ,'as'	=> 'PermissionList'
-	// 	 ,'middleware' => 'permission:Permission List|All'
-	// 	]);
-
 	Route::get('/permission',
 		['uses' => 'BackEnd\PermissionController@index'
 		 ,'as'	=> 'PermissionList'
+		 // ,'middleware' => ['role:Master Admin']
+		 //Phân theo name Role
+		 // ,'middleware' => 'permission:Permission List|All' 
+		 // Roles nào có permission All mới xem được module Permission List
 		]);
+
+	// Route::get('/permission',
+	// 	['uses' => 'BackEnd\PermissionController@index'
+	// 	 ,'as'	=> 'PermissionList'
+	// 	]);
 	Route::get('/permission/add',
 		['uses' => 'BackEnd\PermissionController@create'
 		,'as'	=> 'PermissionCreate'
@@ -72,7 +75,7 @@ Route::group(['prefix' => 'backend','middleware' => 'auth'],function(){
 		,'as'	=> 'RoleEdit'
 		]);
 	Route::put('/roles/edit/{id}',
-		['uses' => 'BackEnd\PermissionController@update'
+		['uses' => 'BackEnd\RoleController@update'
 		,'as'	=> 'RoleUpdate'
 		]);
 	Route::delete('/roles/delete/{id}',

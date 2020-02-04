@@ -86,6 +86,7 @@ class RoleController extends Controller
     public function edit($id)
     {
         $page_name = "Edit Role";
+       
         $role = Role::find($id);
         $data_permission = Permission::pluck('name','id');
         $selected_permission = DB::table('permission_role')->where('permission_role.role_id',$id)->pluck('permission_id')->toArray();
@@ -114,6 +115,7 @@ class RoleController extends Controller
                 'permission.*' => 'Permission is a Array',
             ]
         );
+
         $role = Role::find($id);
         $role->name = $request->name;
         $role->display_name = $request->display_name;
