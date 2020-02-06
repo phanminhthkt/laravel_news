@@ -28,7 +28,14 @@
                     <li>    
                         <a href="{{route('AuthorList')}}"> <i class="menu-icon fa fa-laptopmenu-icon fa fa-laptop"></i>Author </a>
                     </li>
-                    @endpermission    
+                    @endpermission  
+
+                     @permission(['Permission Update','All'])
+                    <li>    
+                        <a href="{{route('CategoryList')}}"> <i class="menu-icon fa fa-laptopmenu-icon fa fa-laptop"></i>Category </a>
+                    </li>
+                    @endpermission 
+
                     <h3 class="menu-title">UI elements</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Components</a>

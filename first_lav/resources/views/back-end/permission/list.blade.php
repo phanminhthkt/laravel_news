@@ -37,7 +37,7 @@
           <div class="card">
               <div class="card-header">
                   <strong class="card-title">{{ $page_name }}</strong>
-                  @permission(['Author Add'])
+                  @permission(['Post Add','All'])
                   <a href="{{route('PermissionCreate')}}" class="btn btn-primary pull-right">Create</a>
                   @endpermission
               </div>
@@ -60,11 +60,15 @@
               <td>{{ $row->display_name }}</td>
               <td>{{ $row->description }}</td>
               <td>
+                @permission(['Post Add','All','Post Edit'])
                 <a class="btn btn-primary" href="{{route('PermissionUpdate',$row->id)}}">Edit</a>
+                @endpermission
                 <!-- <a class="btn btn-danger" href="{{route('PermissionDelete',$row->id)}}">Delete</a> -->
-                {{ Form::open(['method'=>'DELETE','url'=>['/backend/permission/delete/'.$row->id],'style'=>'display:inline']) }}
-                {{ Form::submit('Delete',['class'=>'btn btn-danger']) }}
-                {{ Form::close() }}
+                @permission(['Post Add','All','Post Delete'])
+                  {{ Form::open(['method'=>'DELETE','url'=>['/backend/permission/delete/'.$row->id],'style'=>'display:inline']) }}
+                  {{ Form::submit('Delete',['class'=>'btn btn-danger']) }}
+                  {{ Form::close() }}
+                @endpermission
               </td>
             </tr>
             @endforeach

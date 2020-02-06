@@ -17,11 +17,6 @@ Route::get('/details',['uses' => 'DetailController@index','as' => 'detail']);
 /*End Frond-End */
 Route::group(['prefix' => 'backend','middleware' => 'auth'],function(){
 	Route::get('/',['uses' => 'BackEnd\DashboardController@index']);
-	/*Category */
-	Route::get('/category',['uses' => 'BackEnd\CategoryController@index']);
-	Route::get('/category/add',['uses' => 'BackEnd\CategoryController@create']);
-	Route::get('/category/edit',['uses' => 'BackEnd\CategoryController@edit']);
-	/*End Category */
 
 	/*Permission */
 	Route::get('/permission',
@@ -29,7 +24,7 @@ Route::group(['prefix' => 'backend','middleware' => 'auth'],function(){
 		 ,'as'	=> 'PermissionList'
 		 // ,'middleware' => ['role:Master Admin']
 		 //Phân theo name Role
-		 // ,'middleware' => 'permission:Permission List|All' 
+		 ,'middleware' => 'permission:Permission List|All' 
 		 // Roles nào có permission All mới xem được module Permission List
 		]);
 
@@ -40,21 +35,29 @@ Route::group(['prefix' => 'backend','middleware' => 'auth'],function(){
 	Route::get('/permission/add',
 		['uses' => 'BackEnd\PermissionController@create'
 		,'as'	=> 'PermissionCreate'
+		,'middleware' => 'permission:Permission List|All'
 		]);
-	Route::get('/permission/edit',['uses' => 'BackEnd\PermissionController@edit']);
+	Route::get('/permission/edit',
+		['uses' => 'BackEnd\PermissionController@edit'
+		,'as' => 'PermissionEdit'
+		,'middleware' => 'permission:Permission List|All'
+		]);
 	Route::post('/permission/store',['uses' => 'BackEnd\PermissionController@store']);
 
 	Route::get('/permission/edit/{id}',
 		['uses' => 'BackEnd\PermissionController@edit'
 		,'as'	=> 'PermissionEdit'
+		,'middleware' => 'permission:Permission List|All'
 		]);
 	Route::put('/permission/edit/{id}',
 		['uses' => 'BackEnd\PermissionController@update'
 		,'as'	=> 'PermissionUpdate'
+		,'middleware' => 'permission:Permission List|All'
 		]);
 	Route::delete('/permission/delete/{id}',
 		['uses' => 'BackEnd\PermissionController@destroy'
 		,'as'	=> 'PermissionDelete'
+		,'middleware' => 'permission:Permission List|All'
 		]);
 	/*End Permission */
 
@@ -109,6 +112,44 @@ Route::group(['prefix' => 'backend','middleware' => 'auth'],function(){
 		,'as'	=> 'AuthorDelete'
 		]);
 	/*End Author */
+
+	/*Permission */
+	Route::get('/category',
+		['uses' => 'BackEnd\CategoryController@index'
+		 ,'as'	=> 'CategoryList'
+		 // ,'middleware' => ['role:Master Admin']
+		 //Phân theo name Role
+		 // ,'middleware' => 'permission:Permission List|All' 
+		 // Roles nào có permission All mới xem được module Permission List
+		]);
+
+	// Route::get('/permission',
+	// 	['uses' => 'BackEnd\CategoryController@index'
+	// 	 ,'as'	=> 'CategoryList'
+	// 	]);
+	Route::get('/category/add',
+		['uses' => 'BackEnd\CategoryController@create'
+		,'as'	=> 'CategoryCreate'
+		// ,'middleware' => 'permission:Permission List|All'
+		]);
+	Route::get('/category/edit',
+		['uses' => 'BackEnd\CategoryController@edit'
+		,'as' => 'CategoryEdit'
+		// ,'middleware' => 'permission:Permission List|All'
+		]);
+	Route::post('/category/store',['uses' => 'BackEnd\CategoryController@store']);
+
+	Route::put('/category/edit/{id}',
+		['uses' => 'BackEnd\CategoryController@update'
+		,'as'	=> 'CategoryUpdate'
+		// ,'middleware' => 'permission:Permission List|All'
+		]);
+	Route::delete('/category/delete/{id}',
+		['uses' => 'BackEnd\CategoryController@destroy'
+		,'as'	=> 'CategoryDelete'
+		// ,'middleware' => 'permission:Permission List|All'
+		]);
+	/*End Permission */
 });
 Route::get('/query',['uses' => 'DBController@index']);
 Route::get('/query/join',['uses' => 'DBController@joining']);
