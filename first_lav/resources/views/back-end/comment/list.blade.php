@@ -37,7 +37,7 @@
           <div class="card">
               <div class="card-header">
                   <strong class="card-title">{{ $page_name }}</strong>
-                  <a href="{{route('CategoryCreate')}}" class="btn btn-primary pull-right">Create</a>
+                  <a href="{{route('PostCreate')}}" class="btn btn-primary pull-right">Create</a>
               </div>
               <div class="card-body">
         <table id="bootstrap-data-table" class="table table-striped table-bordered">
@@ -45,17 +45,22 @@
             <tr>
               <th>#</th>
               <th>Name</th>
+              <th>Post</th>
+              <th>Comment</th>
               <th>Status</th>
               <th>Option</th>
             </tr>
           </thead>
           <tbody>
-            @foreach($data as $i=>$row)
+            @foreach($comment as $i=>$row)
             <tr>
               <td>{{ $i+1 }}</td>
+              
               <td>{{ $row->name }}</td>
+              <td >{{ $row->post->title }}</td>
+              <td >{{ $row->comment }}</td>
               <td>
-                {{ Form::open(['method'=>'PUT','url'=>['/backend/category/status/'.$row->id],'style'=>'display:inline']) }}
+                {{ Form::open(['method'=>'PUT','url'=>['/backend/comment/status/'.$row->id],'style'=>'display:inline']) }}
                 @if($row->status === 0)
                 {{ Form::submit('Unpublish',['class'=>'btn btn-danger']) }}
                 @else
@@ -63,15 +68,9 @@
                 @endif
                 {{ Form::close() }}
               </td>
+             
               <td>
-                <a class="btn btn-primary" href="{{route('CategoryUpdate',$row->id)}}">Edit</a>
-                {{ Form::open(
-                  [ 'method'=>'DELETE',
-                    'url'=>['/backend/category/delete/'.$row->id],
-                    'style'=>'display:inline']) 
-                }}
-                {{ Form::submit('Delete',['class'=>'btn btn-danger']) }}
-                {{ Form::close() }}
+                <a class="btn btn-info" href="{{route('CommentReply',$row->id)}}">Reply</a>
               </td>
             </tr>
             @endforeach

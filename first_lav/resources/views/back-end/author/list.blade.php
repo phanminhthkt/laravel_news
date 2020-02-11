@@ -87,7 +87,6 @@
 </div>
 
 <script src="{{asset('public/back-end')}}/js/vendor/jquery-2.1.4.min.js"></script>
-<script src="{{asset('public/back-end')}}/js/popper.min.js"></script>
 <script src="{{asset('public/back-end')}}/js/plugins.js"></script>
 <script src="{{asset('public/back-end')}}/js/main.js"></script>
 

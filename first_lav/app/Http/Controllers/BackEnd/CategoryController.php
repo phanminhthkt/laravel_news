@@ -73,7 +73,9 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        $page_name = "Category Edit";
+        $category = Category::find($id);
+        return view('back-end\category.edit',compact('page_name','category'));
     }
 
     /**
@@ -86,6 +88,18 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $this->validate($request,
+            [
+                'name' => 'required',
+            ],
+            [
+                'name.required' => 'Name Field is Required',
+            ]
+        );
+        $category = Category::find($id);
+        $category->name = $request->name;   
+        $category->save();
+        return redirect()->action('BackEnd\CategoryController@index')->with("success","Category Updated Successfully");
     }
 
     /**
@@ -97,5 +111,12 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function status($id)
+    {
+        $category = Category::find($id);
+        $category->status = ($category->status === 1) ? 0 : 1;   
+        $category->save();
+        return redirect()->action('BackEnd\CategoryController@index')->with("success","Category Created Successfully");
     }
 }

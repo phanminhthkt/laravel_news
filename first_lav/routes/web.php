@@ -113,7 +113,7 @@ Route::group(['prefix' => 'backend','middleware' => 'auth'],function(){
 		]);
 	/*End Author */
 
-	/*Permission */
+	/*Category */
 	Route::get('/category',
 		['uses' => 'BackEnd\CategoryController@index'
 		 ,'as'	=> 'CategoryList'
@@ -132,13 +132,13 @@ Route::group(['prefix' => 'backend','middleware' => 'auth'],function(){
 		,'as'	=> 'CategoryCreate'
 		// ,'middleware' => 'permission:Permission List|All'
 		]);
-	Route::get('/category/edit',
+	
+	Route::post('/category/store',['uses' => 'BackEnd\CategoryController@store']);
+	Route::get('/category/edit/{id}',
 		['uses' => 'BackEnd\CategoryController@edit'
 		,'as' => 'CategoryEdit'
 		// ,'middleware' => 'permission:Permission List|All'
 		]);
-	Route::post('/category/store',['uses' => 'BackEnd\CategoryController@store']);
-
 	Route::put('/category/edit/{id}',
 		['uses' => 'BackEnd\CategoryController@update'
 		,'as'	=> 'CategoryUpdate'
@@ -149,7 +149,81 @@ Route::group(['prefix' => 'backend','middleware' => 'auth'],function(){
 		,'as'	=> 'CategoryDelete'
 		// ,'middleware' => 'permission:Permission List|All'
 		]);
-	/*End Permission */
+	Route::put('/category/status/{id}',
+		['uses' => 'BackEnd\CategoryController@status'
+		,'as'	=> 'CategoryStatus'
+		// ,'middleware' => 'permission:Permission List|All'
+		]);
+	/*End Category */
+
+	/*Post */
+	Route::get('/post',
+		['uses' => 'BackEnd\PostController@index'
+		 ,'as'	=> 'PostList'
+		 // ,'middleware' => ['role:Master Admin']
+		 //Phân theo name Role
+		 ,'middleware' => 'permission:Post List|All' 
+		 // Roles nào có permission All mới xem được module Permission List
+		]);
+
+	// Route::get('/permission',
+	// 	['uses' => 'BackEnd\PostController@index'
+	// 	 ,'as'	=> 'CategoryList'
+	// 	]);
+	Route::get('/post/add',
+		['uses' => 'BackEnd\PostController@create'
+		,'as'	=> 'PostCreate'
+		,'middleware' => 'permission:Post List|All'
+		]);
+	
+	Route::post('/post/store',
+		['uses' => 'BackEnd\PostController@store']
+	);
+	Route::get('/post/edit/{id}',
+		['uses' => 'BackEnd\PostController@edit'
+		,'as' => 'PostEdit'
+		,'middleware' => 'permission:Post List|All'
+		]);
+	Route::put('/post/edit/{id}',
+		['uses' => 'BackEnd\PostController@update'
+		,'as'	=> 'PostUpdate'
+		,'middleware' => 'permission:Post List|All'
+		]);
+	Route::delete('/post/delete/{id}',
+		['uses' => 'BackEnd\PostController@destroy'
+		,'as'	=> 'PostDelete'
+		,'middleware' => 'permission:Post List|All'
+		]);
+	Route::put('/post/status/{id}',
+		['uses' => 'BackEnd\PostController@status'
+		,'as'	=> 'PostStatus'
+		,'middleware' => 'permission:Post List|All'
+		]);
+	Route::put('/post/hot_news/{id}',
+		['uses' => 'BackEnd\PostController@hot_news'
+		,'as'	=> 'PostHotNews'
+		,'middleware' => 'permission:Post List|All'
+		]);
+	/*End Post */
+
+	/*End Comment */
+	Route::get('/comment/{id}',
+		['uses' => 'BackEnd\CommentController@index'
+		,'as' => 'CommentList'
+		,'middleware' => 'permission:Comment List|All'
+		]);
+	Route::put('/comment/reply/{id}',
+		['uses' => 'BackEnd\CommentController@reply'
+		,'as'	=> 'CommentReply'
+		,'middleware' => 'permission:Comment List|All'
+		]);
+	Route::put('/comment/status/{id}',
+		['uses' => 'BackEnd\CommentController@status'
+		,'as'	=> 'CommentStatus'
+		,'middleware' => 'permission:Comment List|All'
+		]);	
+	/*End Comment */
+
 });
 Route::get('/query',['uses' => 'DBController@index']);
 Route::get('/query/join',['uses' => 'DBController@joining']);

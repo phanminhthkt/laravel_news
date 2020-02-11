@@ -2,6 +2,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"></script>
 <script src="{{asset('public/back-end')}}/js/plugins.js"></script>
 <script src="{{asset('public/back-end')}}/js/main.js"></script>
+<script src="{{asset('public/vendor/unisharp/laravel-ckeditor/ckeditor.js')}}"></script>
+<script src="{{asset('public/vendor/unisharp/laravel-ckeditor/adapters/jquery.js')}}"></script>
 
 
 <!-- <script src="{{asset('public/back-end')}}/js/lib/chart-js/Chart.bundle.js"></script> -->

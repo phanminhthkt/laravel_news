@@ -37,15 +37,19 @@
           <div class="card">
               <div class="card-header">
                   <strong class="card-title">{{ $page_name }}</strong>
-                  <a href="{{route('CategoryCreate')}}" class="btn btn-primary pull-right">Create</a>
+                  <a href="{{route('PostCreate')}}" class="btn btn-primary pull-right">Create</a>
               </div>
               <div class="card-body">
         <table id="bootstrap-data-table" class="table table-striped table-bordered">
           <thead>
             <tr>
               <th>#</th>
-              <th>Name</th>
+              <th>Image</th>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Total View</th>
               <th>Status</th>
+              <th>Hot news</th>
               <th>Option</th>
             </tr>
           </thead>
@@ -53,9 +57,17 @@
             @foreach($data as $i=>$row)
             <tr>
               <td>{{ $i+1 }}</td>
-              <td>{{ $row->name }}</td>
+               <td width="15%">
+                @if(file_exists(public_path('/upload/post/').$row->thumb_image))
+                <img width="100" src="{{asset('public/upload/post')}}/{{$row->thumb_image}}" class="img-responsive">
+                @endif
+              </td>
+              <td width="20%">{{ $row->title }}</td>
+             
+              <td >{{ $row->creator->name }}</td>
+              <td width="50">{{ $row->view_count }}</td>
               <td>
-                {{ Form::open(['method'=>'PUT','url'=>['/backend/category/status/'.$row->id],'style'=>'display:inline']) }}
+                {{ Form::open(['method'=>'PUT','url'=>['/backend/post/status/'.$row->id],'style'=>'display:inline']) }}
                 @if($row->status === 0)
                 {{ Form::submit('Unpublish',['class'=>'btn btn-danger']) }}
                 @else
@@ -63,15 +75,19 @@
                 @endif
                 {{ Form::close() }}
               </td>
-              <td>
-                <a class="btn btn-primary" href="{{route('CategoryUpdate',$row->id)}}">Edit</a>
-                {{ Form::open(
-                  [ 'method'=>'DELETE',
-                    'url'=>['/backend/category/delete/'.$row->id],
-                    'style'=>'display:inline']) 
-                }}
-                {{ Form::submit('Delete',['class'=>'btn btn-danger']) }}
+              <td width="50">
+                {{ Form::open(['method'=>'PUT','url'=>['/backend/post/hot_news/'.$row->id],'style'=>'display:inline']) }}
+                @if($row->hot_news === 0)
+                {{ Form::submit('No',['class'=>'btn btn-danger']) }}
+                @else
+                {{ Form::submit('Yes',['class'=>'btn btn-success']) }}
+                @endif
                 {{ Form::close() }}
+              </td>
+              <td>
+                <a class="btn btn-info" href="{{route('CommentList',$row->id)}}"><i class="fa fa-comments"></i></a>
+                <a class="btn btn-primary" href="{{route('PostUpdate',$row->id)}}"><i class="fa fa-edit"></i></a>
+                <a class="btn btn-danger" href="{{route('PostDelete',$row->id)}}"><i class="fa fa-times"></i></a>
               </td>
             </tr>
             @endforeach
