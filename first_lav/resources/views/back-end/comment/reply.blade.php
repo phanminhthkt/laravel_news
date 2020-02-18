@@ -19,6 +19,7 @@
                 @endif
                 <hr>
                 {{ Form::open(['url' => 'backend/comment/reply','method' => 'post']) }}
+                <!-- <form action="" method="post" novalidate="novalidate"> -->
                     <div class="form-group">
                         {{ Form::label('comment','Comment',['class'=>'control-label mb-1']) }}
                         {{ Form::textarea('comment',null,['class'=>'form-control','id'=>'comment'])}}

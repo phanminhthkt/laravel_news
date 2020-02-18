@@ -108,10 +108,14 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        $page_name = "Edit Post";
-        $post = Posts::find($id);
-        $data_category = Category::where('status','1')->pluck("name","id");
-        return view("back-end.post.edit",compact("page_name","post","data_category"));
+        try{
+            $page_name = "Edit Post";
+            $post = Posts::findOrFail($id);
+            $data_category = Category::where('status','1')->pluck("name","id");
+            return view("back-end.post.edit",compact("page_name","post","data_category"));
+        } catch (\Exception $e) {
+            return redirect()->action('BackEnd\PostController@index')->with('error','This Post does not exist !');
+        }
     }
 
     /**
@@ -171,8 +175,16 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        Posts::where('id',$id)->delete();
-        return redirect()->action("BackEnd\PostController@index")->with("success","Post Deleted Successfully");
+        try{
+            $Posts = Posts::findOrFail($id);
+            Posts::where('id',$id)->delete();
+            @unlink(public_path('/upload/post/'.$post->main_image));
+            @unlink(public_path('/upload/post/'.$post->thumb_image));
+            @unlink(public_path('/upload/post/'.$post->list_image));
+             return redirect()->action("BackEnd\PostController@index")->with("success","Post Deleted Successfully");
+        } catch(\Exception $exception){
+            return redirect()->action('BackEnd\PostController@index')->with('error','This Post does not exist !');
+        }
     }
     public function status($id)
     {
@@ -184,9 +196,6 @@ class PostController extends Controller
     public function hot_news($id)
     {
         $post = Posts::find($id);
-        @unlink(public_path('/upload/post/'.$post->main_image));
-        @unlink(public_path('/upload/post/'.$post->thumb_image));
-        @unlink(public_path('/upload/post/'.$post->list_image));
         $post->hot_news = ($post->hot_news === 1) ? 0 : 1;   
         $post->save();
         return redirect()->action('BackEnd\PostController@index')->with("success","Post as Hot News Changed Successfully");

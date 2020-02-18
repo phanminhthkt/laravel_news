@@ -194,6 +194,11 @@ Route::group(['prefix' => 'backend','middleware' => 'auth'],function(){
 		,'as'	=> 'PostDelete'
 		,'middleware' => 'permission:Post List|All'
 		]);
+	// Route::get('/post/delete/{id}',
+	// 	['uses' => 'BackEnd\PostController@destroy'
+	// 	,'as'	=> 'PostDelete'
+	// 	,'middleware' => 'permission:Post List|All'
+	// 	]);
 	Route::put('/post/status/{id}',
 		['uses' => 'BackEnd\PostController@status'
 		,'as'	=> 'PostStatus'
@@ -207,21 +212,37 @@ Route::group(['prefix' => 'backend','middleware' => 'auth'],function(){
 	/*End Post */
 
 	/*End Comment */
+	Route::get('/comment/add/{id}',
+		['uses' => 'BackEnd\CommentController@create'
+		,'as'	=> 'CommentCreate'
+		,'middleware' => 'permission:Comment List|All'
+		]);
 	Route::get('/comment/{id}',
 		['uses' => 'BackEnd\CommentController@index'
 		,'as' => 'CommentList'
 		,'middleware' => 'permission:Comment List|All'
 		]);
-	Route::put('/comment/reply/{id}',
-		['uses' => 'BackEnd\CommentController@reply'
-		,'as'	=> 'CommentReply'
-		,'middleware' => 'permission:Comment List|All'
-		]);
+	// Route::put('/comment/reply/{id}',
+	// 	['uses' => 'BackEnd\CommentController@reply'
+	// 	,'as'	=> 'CommentReply'
+	// 	,'middleware' => 'permission:Comment List|All'
+	// 	]);
 	Route::put('/comment/status/{id}',
 		['uses' => 'BackEnd\CommentController@status'
 		,'as'	=> 'CommentStatus'
 		,'middleware' => 'permission:Comment List|All'
 		]);	
+	Route::get('/comment/reply/{id}',
+		['uses' => 'BackEnd\CommentController@reply'
+		,'as'	=> 'CommentView'
+		,'middleware' => 'permission:Comment List|All'
+		]);
+	Route::post('/comment/reply',
+		['uses' => 'BackEnd\CommentController@store'
+		,'as'	=> 'CommentReply'
+		,'middleware' => 'permission:Comment List|All'
+		]);
+	
 	/*End Comment */
 
 });

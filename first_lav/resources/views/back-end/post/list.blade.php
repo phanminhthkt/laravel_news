@@ -34,6 +34,11 @@
               {{$message}}
           </div>
           @endif
+          @if($error = Session::get('error'))
+          <div class="alert alert-danger">
+              {{$error}}
+          </div>
+          @endif
           <div class="card">
               <div class="card-header">
                   <strong class="card-title">{{ $page_name }}</strong>

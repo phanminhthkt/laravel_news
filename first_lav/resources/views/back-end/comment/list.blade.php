@@ -37,7 +37,7 @@
           <div class="card">
               <div class="card-header">
                   <strong class="card-title">{{ $page_name }}</strong>
-                  <a href="{{route('PostCreate')}}" class="btn btn-primary pull-right">Create</a>
+                  <a href="{{route('CommentCreate',$id)}}" class="btn btn-primary pull-right">Create</a>
               </div>
               <div class="card-body">
         <table id="bootstrap-data-table" class="table table-striped table-bordered">
@@ -70,7 +70,7 @@
               </td>
              
               <td>
-                <a class="btn btn-info" href="{{route('CommentReply',$row->id)}}">Reply</a>
+                <a class="btn btn-info" href="{{route('CommentView',$row->id)}}">Reply</a>
               </td>
             </tr>
             @endforeach
